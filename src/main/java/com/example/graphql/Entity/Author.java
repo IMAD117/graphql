@@ -25,7 +25,15 @@ public class Author {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idA;
 
-    private String name;
+    public int getIdA() {
+		return idA;
+	}
+
+	public void setIdA(int idA) {
+		this.idA = idA;
+	}
+
+	private String name;
     private int age;
     private String nationality;
     
