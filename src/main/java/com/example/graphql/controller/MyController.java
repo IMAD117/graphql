@@ -20,8 +20,8 @@ public class MyController {
 
 	// == == List of books == ==
 	@QueryMapping
-	public BookPage listBooks(@Argument Integer page, @Argument Integer size, @Argument int year,
-			@Argument String language, @Argument int categoryId) {
+	public BookPage listBooks(@Argument Integer page, @Argument Integer size, @Argument Integer year,
+			@Argument String language, @Argument Integer categoryId) {
 		int p = (page != null) ? page : 0;
 		int s = (size != null) ? size : 10;
 		Page<Book> result = service.listBooks(p, s, year, language, categoryId);
