@@ -3,11 +3,13 @@ package com.example.graphql.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Controller;
 
+import com.example.graphql.BookPage;
 import com.example.graphql.Entity.Book;
 import com.example.graphql.service.LibraryService;
 
@@ -15,11 +17,14 @@ import com.example.graphql.service.LibraryService;
 public class MyController {
 	@Autowired
 	private LibraryService service;
+	
 	// == == List of books == ==
     @QueryMapping
-    public List<Book> listBooks() {
-
-        return service.listBooks();
+    public BookPage listBooks(@Argument Integer page,@Argument Integer size) {
+    	int p = (page != null) ? page : 0;
+        int s = (size != null) ? size : 10;
+    	Page<Book> result = service.listBooks(page,size);
+        return new BookPage(result.getContent(),result.getTotalPages(),(int)result.getTotalElements());
     }
     
 	// == == Books of a selected author == ==

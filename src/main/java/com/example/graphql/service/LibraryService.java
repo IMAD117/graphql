@@ -27,8 +27,9 @@ public class LibraryService {
 	}
 	
 //	List of books
-    public List<Book> listBooks() {
-        return bookRepo.findAll();
+    public Page<Book> listBooks(int page , int size) {
+    	PageRequest pageRequest = PageRequest.of(page,size);
+        return bookRepo.findAll(pageRequest);
     }
     
 //  Books of a selected author
