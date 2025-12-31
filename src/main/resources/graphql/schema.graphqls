@@ -1,0 +1,39 @@
+type Author {
+  idA: ID
+  name: String
+  age: Int
+  nationality: String
+  books: [Book]
+}
+
+type Book {
+  idBook: ID
+  title: String
+  publicationYear: Int
+  language: String
+  nbPages: Int
+  author: Author
+  category: Category
+}
+
+type Category {
+  idC: ID
+  categoryName: String
+  parentCategory: Category
+  subCategories: [Category]
+}
+
+
+
+type Mutation {
+  addBook(
+    title: String!,
+    publicationYear: Int!,
+    language: String!,
+    nbPages: Int!,
+    authorId: ID!,
+    categoryId: ID!
+  ): Book
+
+  deleteAuthor(authorId: ID!): Boolean
+}
