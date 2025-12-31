@@ -264,3 +264,4 @@ INSERT INTO book (id_book, title, publication_year, language, nb_pages, author_i
 INSERT INTO book (id_book, title, publication_year, language, nb_pages, author_ida, category_idc) VALUES (169, 'The Idiot', 1869, 'English', 656, 18, 1);
 INSERT INTO book (id_book, title, publication_year, language, nb_pages, author_ida, category_idc) VALUES (170, 'The Autumn of the Patriarch', 1975, 'English', 269, 19, 1);
 
+ALTER TABLE book ALTER COLUMN id_book RESTART WITH 171;
