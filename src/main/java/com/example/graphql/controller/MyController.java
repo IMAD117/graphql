@@ -17,23 +17,24 @@ import com.example.graphql.service.LibraryService;
 public class MyController {
 	@Autowired
 	private LibraryService service;
-	
+
 	// == == List of books == ==
-    @QueryMapping
-    public BookPage listBooks(@Argument Integer page,@Argument Integer size) {
-    	int p = (page != null) ? page : 0;
-        int s = (size != null) ? size : 10;
-    	Page<Book> result = service.listBooks(p,s);
-        return new BookPage(result.getContent(),result.getTotalPages(),(int)result.getTotalElements());
-    }
-    
+	@QueryMapping
+	public BookPage listBooks(@Argument Integer page, @Argument Integer size, @Argument int year,
+			@Argument String language, @Argument int categoryId) {
+		int p = (page != null) ? page : 0;
+		int s = (size != null) ? size : 10;
+		Page<Book> result = service.listBooks(p, s, year, language, categoryId);
+		return new BookPage(result.getContent(), result.getTotalPages(), (int) result.getTotalElements());
+	}
+
 	// == == Books of a selected author == ==
 	@QueryMapping
 	public List<Book> booksByAuthor(@Argument Integer authorId) {
 		return service.booksByAuthor(authorId);
 	}
 
-    // == == add book == ==
+	// == == add book == ==
 	@MutationMapping
 	public Book addBook(@Argument String title, @Argument int publicationYear, @Argument String language,
 			@Argument int nbPages, @Argument int authorId, @Argument int categoryId) {

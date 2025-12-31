@@ -27,8 +27,21 @@ public class LibraryService {
 	}
 	
 //	List of books
-    public Page<Book> listBooks(int page , int size) {
-    	PageRequest pageRequest = PageRequest.of(page,size);
+    public Page<Book> listBooks(int page , int size,Integer year,String language,Integer categoryId) {
+    	PageRequest pageRequest = PageRequest.of(page, size);
+    	
+        if (year != null) {
+            return bookRepo.findByPublicationYear(year, pageRequest);
+        }
+
+        if (language != null) {
+            return bookRepo.findByLanguage(language, pageRequest);
+        }
+
+        if (categoryId != null) {
+            return bookRepo.findByCategory_IdC(categoryId, pageRequest);
+        }
+
         return bookRepo.findAll(pageRequest);
     }
     
