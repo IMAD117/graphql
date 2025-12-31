@@ -23,7 +23,19 @@ type Category {
   subCategories: [Category]
 }
 
+type PageInfo {
+  totalPages: Int
+  totalElements: Int
+}
 
+type BookPage {
+  content: [Book]
+  pageInfo: PageInfo
+}
+
+type Query{
+booksByAuthor(authorId: ID!): [Book]
+}
 
 type Mutation {
   addBook(
