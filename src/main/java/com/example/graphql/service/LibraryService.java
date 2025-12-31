@@ -2,6 +2,8 @@ package com.example.graphql.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.example.graphql.Entity.Author;
@@ -23,7 +25,12 @@ public class LibraryService {
 		this.authorRepo = authorRepo;
 		this.categoryRepo = categoryRepo;
 	}
-
+	
+//	List of books
+    public List<Book> listBooks() {
+        return bookRepo.findAll();
+    }
+    
 //  Books of a selected author
 	public List<Book> booksByAuthor(int authorId) {
 		return bookRepo.findAll().stream().filter(b -> b.getAuthor().getIdA() == authorId).toList();

@@ -15,7 +15,13 @@ import com.example.graphql.service.LibraryService;
 public class MyController {
 	@Autowired
 	private LibraryService service;
+	// == == List of books == ==
+    @QueryMapping
+    public List<Book> listBooks() {
 
+        return service.listBooks();
+    }
+    
 	// == == Books of a selected author == ==
 	@QueryMapping
 	public List<Book> booksByAuthor(@Argument Integer authorId) {

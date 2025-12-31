@@ -34,7 +34,8 @@ type BookPage {
 }
 
 type Query{
-booksByAuthor(authorId: ID!): [Book]
+  listBooks: [Book]
+  booksByAuthor(authorId: ID!): [Book]
 }
 
 type Mutation {
