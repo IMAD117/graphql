@@ -35,8 +35,11 @@ type BookPage {
 
 type Query{
   listBooks(
-  page: Int
-  size: Int): BookPage
+    page: Int
+    size: Int
+    year: Int
+    language: String
+    categoryId: ID): BookPage
   booksByAuthor(authorId: ID!): [Book]
 }
 
