@@ -23,7 +23,7 @@ public class MyController {
     public BookPage listBooks(@Argument Integer page,@Argument Integer size) {
     	int p = (page != null) ? page : 0;
         int s = (size != null) ? size : 10;
-    	Page<Book> result = service.listBooks(page,size);
+    	Page<Book> result = service.listBooks(p,s);
         return new BookPage(result.getContent(),result.getTotalPages(),(int)result.getTotalElements());
     }
     
