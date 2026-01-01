@@ -17,6 +17,8 @@ import com.example.graphql.service.LibraryService;
 public class MyController {
 	@Autowired
 	private LibraryService service;
+	
+//	========================= QUERIES ==============================
 
 	// == == List of books == ==
 	@QueryMapping
@@ -33,7 +35,28 @@ public class MyController {
 	public List<Book> booksByAuthor(@Argument Integer authorId) {
 		return service.booksByAuthor(authorId);
 	}
+	
+	// == == Search for books == ==
+    @QueryMapping
+    public BookPage search(
+            @Argument String keyword,
+            @Argument String type,
+            @Argument Integer page,
+            @Argument Integer size) {
 
+        int p = (page != null) ? page : 0;
+        int s = (size != null) ? size : 10;
+
+        Page<Book> result = service.searchBooks(keyword, type, p, s);
+
+        return new BookPage(
+                result.getContent(),
+                result.getTotalPages(),
+                (int) result.getTotalElements());
+    }
+	
+//	========================= MUTATIONS ==============================
+	
 	// == == add book == ==
 	@MutationMapping
 	public Book addBook(@Argument String title, @Argument int publicationYear, @Argument String language,

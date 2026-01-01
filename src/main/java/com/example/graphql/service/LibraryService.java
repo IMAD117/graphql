@@ -45,6 +45,12 @@ public class LibraryService {
 
         return bookRepo.findAll(pageRequest);
     }
+
+// Search for books
+    public Page<Book> searchBooks(String keyword, String type, int page, int size) {
+    	return null;
+    }
+    
     
 //  Books of a selected author
 	public List<Book> booksByAuthor(int authorId) {
