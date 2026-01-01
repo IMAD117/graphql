@@ -32,7 +32,11 @@ type BookPage {
   content: [Book]
   pageInfo: PageInfo
 }
-
+union SearchResult = Book | Author | Category
+type SearchPage {
+  content: [SearchResult]
+  pageInfo: PageInfo
+}
 type Query{
   listBooks(
     page: Int
@@ -41,6 +45,7 @@ type Query{
     language: String
     categoryId: ID): BookPage
   booksByAuthor(authorId: ID!): [Book]
+  search(keyword: String!, type: String, page: Int, size: Int): SearchPage
 }
 
 type Mutation {

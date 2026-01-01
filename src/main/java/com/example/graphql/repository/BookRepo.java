@@ -12,4 +12,6 @@ public interface BookRepo extends JpaRepository<Book, Integer> {
     Page<Book> findByPublicationYear(int year, Pageable pageable);
 
     Page<Book> findByCategory_IdC(Integer categoryId, Pageable pageable);
+    
+    Page<Book> findByTitleContainingIgnoreCase(String title, Pageable pageable);
 }

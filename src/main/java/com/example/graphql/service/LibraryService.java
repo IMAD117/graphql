@@ -47,8 +47,18 @@ public class LibraryService {
     }
 
 // Search for books
-    public Page<Book> searchBooks(String keyword, String type, int page, int size) {
-    	return null;
+    public Page<?> search(String keyword, String type, int page, int size) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+        switch (type.toLowerCase()) {
+        case "book":
+            return bookRepo.findByTitleContainingIgnoreCase(keyword, pageRequest);
+        case "author":
+            return authorRepo.findByNameContainingIgnoreCase(keyword, pageRequest);
+        case "category":
+            return categoryRepo.findByCategoryNameContainingIgnoreCase(keyword, pageRequest);
+        default:
+            return Page.empty(pageRequest);
+    }
     }
     
     
