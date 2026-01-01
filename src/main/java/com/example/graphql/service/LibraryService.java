@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import com.example.graphql.Entity.Author;
@@ -51,6 +52,7 @@ public class LibraryService {
 	}
 
 //  add book
+    @PreAuthorize("hasRole('ADMIN')")
 	public Book addBook(String title, int year, String language, int pages, int authorId, int categoryId) {
 
 		Author author = authorRepo.findById(authorId).orElseThrow(() -> new RuntimeException("Author not found"));
@@ -69,6 +71,7 @@ public class LibraryService {
 	}
 
 //  delete author
+    @PreAuthorize("hasRole('ADMIN')")
 	public void deleteAuthor(int authorId) {
 		authorRepo.deleteById(authorId);
 	}
