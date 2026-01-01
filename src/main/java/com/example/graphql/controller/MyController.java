@@ -7,14 +7,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
-import org.springframework.graphql.data.method.annotation.SchemaMapping;
 import org.springframework.stereotype.Controller;
 
 import com.example.graphql.BookPage;
 import com.example.graphql.SearchPage;
-import com.example.graphql.Entity.Author;
 import com.example.graphql.Entity.Book;
-import com.example.graphql.Entity.Category;
 import com.example.graphql.service.LibraryService;
 
 @Controller
@@ -50,8 +47,9 @@ public class MyController {
 
         int p = (page != null) ? page : 0;
         int s = (size != null) ? size : 10;
+        String t = (type!=null)? type:"Book";
 
-        Page<?> result = service.search(keyword, type, p, s);
+        Page<?> result = service.search(keyword, t, p, s);
 
         return new SearchPage(
                 result.getContent(),
