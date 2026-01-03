@@ -47,7 +47,7 @@ public class MyController {
 
         int p = (page != null) ? page : 0;
         int s = (size != null) ? size : 10;
-        String t = (type!=null)? type:"Book";
+        String t = (type!=null)? type:"all";
 
         Page<?> result = service.search(keyword, t, p, s);
 

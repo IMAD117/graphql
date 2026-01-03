@@ -1,8 +1,10 @@
 package com.example.graphql.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
@@ -48,17 +50,36 @@ public class LibraryService {
 
 // Search for books
     public Page<?> search(String keyword, String type, int page, int size) {
-        PageRequest pageRequest = PageRequest.of(page, size);
-        switch (type.toLowerCase()) {
-        case "book":
-            return bookRepo.findByTitleContainingIgnoreCase(keyword, pageRequest);
-        case "author":
-            return authorRepo.findByNameContainingIgnoreCase(keyword, pageRequest);
-        case "category":
-            return categoryRepo.findByCategoryNameContainingIgnoreCase(keyword, pageRequest);
-        default:
-            return Page.empty(pageRequest);
-    }
+        List<Object> combined = new ArrayList<>();
+        String key = keyword.toLowerCase();
+
+
+        if (type == null || type.equalsIgnoreCase("all") || type.equalsIgnoreCase("book")) {
+            combined.addAll(bookRepo.findAll().stream()
+                    .filter(b -> b.getTitle().toLowerCase().contains(key))
+                    .toList());
+        }
+
+        if (type == null || type.equalsIgnoreCase("all") || type.equalsIgnoreCase("author")) {
+            combined.addAll(authorRepo.findAll().stream()
+                    .filter(a -> a.getName().toLowerCase().contains(key))
+                    .toList());
+        }
+
+        if (type == null || type.equalsIgnoreCase("all") || type.equalsIgnoreCase("category")) {
+            combined.addAll(categoryRepo.findAll().stream()
+                    .filter(c -> c.getCategoryName().toLowerCase().contains(key))
+                    .toList());
+        }
+
+        int start = page * size;
+        int end = Math.min((start + size), combined.size());
+
+        List<Object> subList = new ArrayList<>();
+        if (start < combined.size()) {
+            subList = combined.subList(start, end);
+        }
+        return new PageImpl<>(subList, PageRequest.of(page, size), combined.size());
     }
     
     

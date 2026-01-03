@@ -40,4 +40,14 @@ public class Author {
 //    cascade is for when I delete author all his books will be deleted.
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
     private List<Book> books;
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
 }

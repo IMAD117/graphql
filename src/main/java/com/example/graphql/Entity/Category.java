@@ -31,4 +31,14 @@ public class Category {
 
     @OneToMany(mappedBy = "parentCategory")
     private List<Category> subCategories;
+
+	public String getCategoryName() {
+		return categoryName;
+	}
+
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+	}
+
+    
 }
