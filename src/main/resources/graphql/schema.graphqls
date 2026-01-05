@@ -43,7 +43,7 @@ type Query{
     size: Int
     year: Int
     language: String
-    categoryId: ID): BookPage
+    categoryName: String): BookPage
   booksByAuthor(authorId: ID!): [Book]
   search(keyword: String!, type: String, page: Int, size: Int): SearchPage
 }
